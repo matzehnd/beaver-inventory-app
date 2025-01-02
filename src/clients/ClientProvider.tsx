@@ -4,7 +4,10 @@ import { AuthClient } from "./auth.client";
 import { UserContex } from "../user/UserContext";
 
 export const ClientProvider: FC<PropsWithChildren> = ({ children }) => {
-  const client = useMemo(() => new AuthClient(import.meta.env.AUTH_API), []);
+  const client = useMemo(
+    () => new AuthClient(import.meta.env.VITE_AUTH_API),
+    []
+  );
   const { token } = useContext(UserContex);
   useEffect(() => {
     if (typeof token === "string") {

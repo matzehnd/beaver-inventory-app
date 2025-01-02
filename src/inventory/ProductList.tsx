@@ -8,7 +8,11 @@ const ProductList: React.FC<{
   return (
     <Stack direction={"column"} spacing={2}>
       {products.map((product) => (
-        <ProductCard name={product.name} stock={product.stock} />
+        <ProductCard
+          name={product.name}
+          stock={product.stock}
+          key={product.id}
+        />
       ))}
     </Stack>
   );

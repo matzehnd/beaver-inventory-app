@@ -1,23 +1,26 @@
-import { Button, Card, CardContent, Stack, TextField } from "@mui/material";
-import { FC } from "react";
+import { FC, useCallback } from "react";
+import { LoginComponent } from "./Login.component";
+import { useTextField } from "../helpers/useTextField";
+import { useClientContext } from "../clients/useClientContext";
+import { useUserContext } from "../user/useUserContext";
+import { useNavigate } from "@tanstack/react-router";
 
 export const Login: FC = () => {
-  return (
-    <Card>
-      <CardContent>
-        <Stack direction={"column"} spacing={2}>
-          <TextField id="email" label="E-Mail" variant="outlined" />
-          <TextField
-            id="password"
-            label="Password"
-            variant="outlined"
-            type="password"
-          />
-          <Stack direction={"row"} spacing={2} justifyContent={"end"}>
-            <Button variant="contained">Login</Button>
-          </Stack>
-        </Stack>
-      </CardContent>
-    </Card>
+  const email = useTextField();
+  const password = useTextField();
+  const { authClient } = useClientContext();
+  const { setToken } = useUserContext();
+  const navigate = useNavigate();
+  const onSend = useCallback(
+    () =>
+      authClient
+        .getToken(email.value, password.value, 1)
+        .then((a) => {
+          setToken(a.data.token);
+          navigate({ to: "/" });
+        })
+        .catch(() => password.set("")),
+    [authClient, email.value, password, setToken, navigate]
   );
+  return <LoginComponent email={email} password={password} onSend={onSend} />;
 };
