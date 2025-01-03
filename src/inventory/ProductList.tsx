@@ -1,16 +1,17 @@
 import React from "react";
 import { Stack } from "@mui/material";
 import ProductCard from "./ProductCard";
+import { ProductStock } from "../core/productStock";
 
 const ProductList: React.FC<{
-  products: { id: string; name: string; stock: number }[];
+  products: Array<ProductStock>;
 }> = ({ products }) => {
   return (
     <Stack direction={"column"} spacing={2}>
       {products.map((product) => (
         <ProductCard
           name={product.name}
-          stock={product.stock}
+          stock={product.quantity.amount}
           key={product.id}
         />
       ))}
