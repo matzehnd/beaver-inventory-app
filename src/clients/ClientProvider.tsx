@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useContext, useEffect, useMemo } from "react";
 import { ClientContext } from "./ClientContext";
 import { AuthClient } from "./auth.client";
-import { UserContex } from "../user/UserContext";
+import { UserContex } from "../contexts/user/UserContext";
 import { InventoryClient } from "./inventory.client";
 
 export const ClientProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -17,8 +17,9 @@ export const ClientProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     if (typeof token === "string") {
       authClient.setToken(token);
+      inventoryClient.setToken(token);
     }
-  }, [token, authClient]);
+  }, [token, authClient, inventoryClient]);
   return (
     <ClientContext.Provider value={{ authClient, inventoryClient }}>
       {children}

@@ -6,7 +6,10 @@ const ProductCard: React.FC<{ name: string; stock: number }> = ({
   stock,
 }) => {
   return (
-    <Card sx={{ minWidth: 200, textAlign: "center" }}>
+    <Card
+      sx={{ minWidth: 200, textAlign: "center" }}
+      onClick={() => console.log("blub")}
+    >
       <CardContent>
         <Typography variant="h3">{name}</Typography>
         <Typography variant="body1">{stock} Stück</Typography>

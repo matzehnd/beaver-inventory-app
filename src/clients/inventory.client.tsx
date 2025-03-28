@@ -59,12 +59,12 @@ export class InventoryClient {
       Array<{
         id: string;
         name: string;
-        quantit: { amount: number; unit: string };
+        quantity: { amount: number; unit: string };
       }>
     >({
       method: "get",
       baseURL: this.baseUrl,
-      url: "batches",
+      url: "products",
       responseType: "json",
       headers: this.getHeaders(),
     });

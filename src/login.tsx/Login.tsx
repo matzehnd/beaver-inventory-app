@@ -2,7 +2,7 @@ import { FC, useCallback } from "react";
 import { LoginComponent } from "./Login.component";
 import { useTextField } from "../helpers/useTextField";
 import { useClientContext } from "../clients/useClientContext";
-import { useUserContext } from "../user/useUserContext";
+import { useUserContext } from "../contexts/user/useUserContext";
 import { useNavigate } from "@tanstack/react-router";
 
 export const Login: FC = () => {
