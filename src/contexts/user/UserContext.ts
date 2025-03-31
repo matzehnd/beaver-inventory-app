@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 export interface UserContextData {
   isLoggedIn: boolean;
-  setToken: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setToken: (token: string) => void;
   token: string | undefined;
   logout: () => void;
 }

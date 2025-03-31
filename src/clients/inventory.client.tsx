@@ -70,6 +70,17 @@ export class InventoryClient {
     });
   }
 
+  stockChange() {
+    return axios<void>({
+      method: "post",
+      baseURL: this.baseUrl,
+      url: "stock/change",
+      responseType: "json",
+      headers: this.getHeaders(),
+      data: {},
+    });
+  }
+
   private getHeaders() {
     return { Authorization: `Bearer ${this.token}` };
   }

@@ -1,17 +1,19 @@
 import { ReactNode, useState } from "react";
 import Dialog from "@mui/material/Dialog";
-import { DialogTitle } from "@mui/material";
+import { DialogContent, DialogTitle } from "@mui/material";
 
 export const useDialog = (content: ReactNode, title: ReactNode) => {
   const [isOpen, setIsOpen] = useState(false);
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
 
   return {
-    open: () => setIsOpen(true),
-    close: () => setIsOpen(false),
-    dialog: (
-      <Dialog open={isOpen} onClose={close}>
+    open: openDialog,
+    close: closeDialog,
+    Dialog: (
+      <Dialog fullWidth open={isOpen} onClose={closeDialog}>
         <DialogTitle>{title}</DialogTitle>
-        {content}
+        <DialogContent>{content}</DialogContent>
       </Dialog>
     ),
   };

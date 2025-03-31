@@ -6,7 +6,6 @@ import { ProductStock } from "../core/productStock";
 const ProductList: React.FC<{
   products: ReadonlyArray<ProductStock>;
 }> = ({ products }) => {
-  console.log("products :>> ", products);
   return (
     <Stack direction={"column"} spacing={2}>
       {products.map((product) => (

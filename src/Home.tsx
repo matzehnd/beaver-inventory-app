@@ -4,8 +4,11 @@ import { Fab, IconButton, Stack } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import AddIcon from "@mui/icons-material/Add";
 import { useInventoryContext } from "./contexts/inventory/useInventoryContext";
+import { useDialog } from "./helpers/useDialog";
+import { AddBatch } from "./inventory/AddBatch";
 const Home: React.FC = () => {
   const { productStock, load } = useInventoryContext();
+  const { Dialog, open } = useDialog(<AddBatch />, "Einlagern");
 
   useEffect(() => {
     load();
@@ -25,9 +28,11 @@ const Home: React.FC = () => {
           bottom: 16,
           right: 16,
         }}
+        onClick={open}
       >
         <AddIcon />
       </Fab>
+      {Dialog}
     </Stack>
   );
 };
