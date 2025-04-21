@@ -6,9 +6,19 @@ import AddIcon from "@mui/icons-material/Add";
 import { useInventoryContext } from "./contexts/inventory/useInventoryContext";
 import { useDialog } from "./helpers/useDialog";
 import { AddBatch } from "./inventory/AddBatch";
+import { CONSTANTS } from "./Constants";
 const Home: React.FC = () => {
-  const { productStock, load } = useInventoryContext();
-  const { Dialog, open } = useDialog(<AddBatch />, "Einlagern");
+  const { productStock, load, addToInventory } = useInventoryContext();
+  const { Dialog, open, close } = useDialog(
+    <AddBatch
+      stockChange={(amount, date) => {
+        return addToInventory(CONSTANTS.products.egg, amount, date)
+          .then(close)
+          .finally(load);
+      }}
+    />,
+    "Einlagern"
+  );
 
   useEffect(() => {
     load();

@@ -4,12 +4,14 @@ import { Batch } from "../../core/batch";
 import { Location } from "../../core/location";
 import { ProductStock } from "../../core/productStock";
 import { Dayjs } from "dayjs";
+import { StockItem } from "../../core/stockItem";
 
 export interface InventoryContext {
   products: ReadonlyArray<Product>;
   batches: ReadonlyArray<Batch>;
   locations: ReadonlyArray<Location>;
   productStock: ReadonlyArray<ProductStock>;
+  stockItems: ReadonlyArray<StockItem>;
   load: () => Promise<void>;
   addToInventory: (
     product: Product,
@@ -23,6 +25,7 @@ export const InventoryContex = createContext<InventoryContext>({
   batches: [],
   locations: [],
   productStock: [],
+  stockItems: [],
   load: () => Promise.resolve(),
   addToInventory: () => Promise.resolve(),
 });

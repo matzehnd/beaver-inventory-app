@@ -1,14 +1,22 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 
-const ProductCard: React.FC<{ name: string; stock: number }> = ({
-  name,
-  stock,
-}) => {
+const ProductCard: React.FC<{
+  name: string;
+  stock: number;
+  productId: string;
+}> = ({ name, stock, productId }) => {
+  const navigate = useNavigate();
   return (
     <Card
       sx={{ minWidth: 200, textAlign: "center" }}
-      onClick={() => console.log("blub")}
+      onClick={() =>
+        navigate({
+          to: "/products/$productId",
+          params: { productId },
+        })
+      }
     >
       <CardContent>
         <Typography variant="h3">{name}</Typography>

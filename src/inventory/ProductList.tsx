@@ -13,6 +13,7 @@ const ProductList: React.FC<{
           name={product.name}
           stock={product.quantity.amount}
           key={product.id}
+          productId={product.id}
         />
       ))}
     </Stack>

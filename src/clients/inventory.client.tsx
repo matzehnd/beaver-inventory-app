@@ -1,4 +1,7 @@
 import axios from "axios";
+import { Location } from "../core/location";
+import { Batch } from "../core/batch";
+import { CONSTANTS } from "../Constants";
 
 export class InventoryClient {
   private token: string = "";
@@ -12,7 +15,7 @@ export class InventoryClient {
       Array<{
         locationId: string;
         batchId: string;
-        quantity: { amoung: number; unit: string };
+        quantity: { amount: number; unit: string };
       }>
     >({
       method: "get",
@@ -70,14 +73,32 @@ export class InventoryClient {
     });
   }
 
-  stockChange() {
+  stockChange(batch: Batch, location: Location, quantity: number) {
     return axios<void>({
       method: "post",
       baseURL: this.baseUrl,
       url: "stock/change",
       responseType: "json",
       headers: this.getHeaders(),
-      data: {},
+      data: {
+        batch: {
+          id: batch.id,
+          product: {
+            id: batch.product.id,
+            name: batch.product.name,
+          },
+          producedAt: batch.producedAt,
+          sellLatesAt: batch.sellLatestAt,
+        },
+        location: {
+          id: location.id,
+          name: location.name,
+        },
+        quantity: {
+          amount: quantity,
+          unit: CONSTANTS.units.pcs,
+        },
+      },
     });
   }
 
