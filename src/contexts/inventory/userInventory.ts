@@ -74,6 +74,15 @@ export const useInventory: () => InventoryContext = () => {
     },
     [inventoryClient]
   );
+  const takeFromInventory: (batch: Batch, quantity: number) => Promise<void> =
+    useCallback(
+      (batch, quantity) => {
+        return inventoryClient
+          .stockChange(batch, CONSTANTS.locations.butik, quantity * -1)
+          .then(() => undefined);
+      },
+      [inventoryClient]
+    );
 
   const loadProducts = useCallback(() => {
     return inventoryClient.getProducts().then((res) => {
@@ -129,5 +138,6 @@ export const useInventory: () => InventoryContext = () => {
     stockItems,
     load,
     addToInventory,
+    takeFromInventory,
   };
 };

@@ -1,6 +1,7 @@
 import { Button, Fab, Stack, TextField } from "@mui/material";
 import { FC, useState } from "react";
 import Add from "@mui/icons-material/Add";
+import MoveToInboxOutlinedIcon from "@mui/icons-material/MoveToInboxOutlined";
 import Remove from "@mui/icons-material/Remove";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
@@ -18,7 +19,7 @@ interface Props {
   stockChange: (amount: number, date: Dayjs) => Promise<void>;
 }
 
-export const AddBatch: FC<Props> = ({ stockChange }) => {
+export const AddToStock: FC<Props> = ({ stockChange }) => {
   const [amount, setAmount] = useState(30);
   const [date, setDate] = useState(dayjs());
 
@@ -45,7 +46,14 @@ export const AddBatch: FC<Props> = ({ stockChange }) => {
         </Fab>
       </Stack>
       <Stack direction="row" justifyContent={"end"}>
-        <Button onClick={() => stockChange(amount, date)}>Einlagern</Button>
+        <Button
+          variant="contained"
+          onClick={() => stockChange(amount, date)}
+          color="primary"
+        >
+          <MoveToInboxOutlinedIcon />
+          Einlagern
+        </Button>
       </Stack>
     </Stack>
   );

@@ -2,23 +2,12 @@ import React, { useEffect } from "react";
 import ProductList from "./inventory/ProductList";
 import { Fab, IconButton, Stack } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
-import AddIcon from "@mui/icons-material/Add";
+import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
 import { useInventoryContext } from "./contexts/inventory/useInventoryContext";
-import { useDialog } from "./helpers/useDialog";
-import { AddBatch } from "./inventory/AddBatch";
-import { CONSTANTS } from "./Constants";
+import { useAddToStockDialog } from "./inventory/useAddToStockDialog";
 const Home: React.FC = () => {
-  const { productStock, load, addToInventory } = useInventoryContext();
-  const { Dialog, open, close } = useDialog(
-    <AddBatch
-      stockChange={(amount, date) => {
-        return addToInventory(CONSTANTS.products.egg, amount, date)
-          .then(close)
-          .finally(load);
-      }}
-    />,
-    "Einlagern"
-  );
+  const { productStock, load } = useInventoryContext();
+  const { AddToStockDialog, openAddToStockDialog } = useAddToStockDialog();
 
   useEffect(() => {
     load();
@@ -38,11 +27,11 @@ const Home: React.FC = () => {
           bottom: 16,
           right: 16,
         }}
-        onClick={open}
+        onClick={openAddToStockDialog}
       >
-        <AddIcon />
+        <MoveToInboxIcon />
       </Fab>
-      {Dialog}
+      {AddToStockDialog}
     </Stack>
   );
 };

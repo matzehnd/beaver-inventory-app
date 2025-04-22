@@ -18,6 +18,7 @@ export interface InventoryContext {
     quantity: number,
     date: Dayjs
   ) => Promise<void>;
+  takeFromInventory: (batch: Batch, quantity: number) => Promise<void>;
 }
 
 export const InventoryContex = createContext<InventoryContext>({
@@ -28,4 +29,5 @@ export const InventoryContex = createContext<InventoryContext>({
   stockItems: [],
   load: () => Promise.resolve(),
   addToInventory: () => Promise.resolve(),
+  takeFromInventory: () => Promise.resolve(),
 });
